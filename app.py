@@ -75,26 +75,25 @@ st.markdown("""
 
 # ─── Input ───────────────────────────────────────────────────────────────────
 st.markdown("#### 📨 Masukkan Teks SMS")
-teks_input = st.text_area(
-    label="",
-    placeholder="Contoh: Selamat! Anda memenangkan hadiah Rp 50 juta...",
-    height=120
-)
+if 'teks_input' not in st.session_state:
+    st.session_state['teks_input'] = ""
 
 # ─── Contoh Cepat ────────────────────────────────────────────────────────────
 st.markdown("**💡 Coba contoh:**")
 col1, col2 = st.columns(2)
 with col1:
     if st.button("📛 Contoh Spam"):
-        teks_input = "Selamat! Anda memenangkan hadiah Rp 50 juta! Hubungi kami segera dan klaim hadiah Anda sekarang!"
-        st.session_state['teks'] = teks_input
+        st.session_state['teks_input'] = "Selamat! Anda memenangkan hadiah Rp 50 juta! Hubungi kami segera dan klaim hadiah Anda sekarang!"
 with col2:
     if st.button("✅ Contoh Normal"):
-        teks_input = "Hei, kamu jadi ikut rapat besok pagi kan? Jam 9 di kantor ya"
-        st.session_state['teks'] = teks_input
+        st.session_state['teks_input'] = "Hei, kamu jadi ikut rapat besok pagi kan? Jam 9 di kantor ya"
 
-if 'teks' in st.session_state and not teks_input:
-    teks_input = st.session_state['teks']
+teks_input = st.text_area(
+    label="",
+    placeholder="Contoh: Selamat! Anda memenangkan hadiah Rp 50 juta...",
+    height=120,
+    value=st.session_state['teks_input']
+)
 
 # ─── Prediksi ────────────────────────────────────────────────────────────────
 if st.button("🔍 DETEKSI SEKARANG"):
